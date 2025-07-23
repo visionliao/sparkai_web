@@ -9,7 +9,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy Project
+    name: Deploy sparkai_web
     runs-on: ubuntu-latest
 
     steps:
