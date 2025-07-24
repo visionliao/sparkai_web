@@ -1,6 +1,6 @@
 # .github/workflows/deploy.yml
 
-name: Deploy to ECS via SSH
+name: Deploy to Mac mini via SSH
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy sparkai_web
+    name: Deploy sparkai_web to Mac mini
     runs-on: ubuntu-latest
 
     steps:
@@ -19,8 +19,8 @@ jobs:
       - name: Set up SSH key and known hosts
         uses: shimataro/ssh-key-action@v2
         with:
-          key: ${{ secrets.SPARKAI_WEB_SSH_PRIVATE_KEY }}
-          known_hosts: ${{ secrets.SPARKAI_WEB_KNOWN_HOSTS }}
+          key: ${{ secrets.MAC_SPARKAI_WEB_SSH_PRIVATE_KEY }}
+          known_hosts: ${{ secrets.MAC_SPARKAI_WEB_KNOWN_HOSTS }}
 
       - name: Deploy to ECS Server
         run: |
