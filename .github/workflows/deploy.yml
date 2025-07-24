@@ -22,12 +22,12 @@ jobs:
           key: ${{ secrets.MAC_SPARKAI_WEB_SSH_PRIVATE_KEY }}
           known_hosts: ${{ secrets.MAC_SPARKAI_WEB_KNOWN_HOSTS }}
 
-      - name: Deploy to ECS Server
+      - name: Deploy to Mac mini Server
         run: |
-          ssh root@47.117.144.223 <<EOF
+          ssh -p 6000 ayr@47.117.144.223 <<EOF
             set -e
             echo "Navigate to project directory"
-            cd ~/liao/cicd_test/sparkai_web/
+            cd /Users/ayr/sparkai/sparkai_web/
 
             echo "Pull latest code from GitHub"
             git pull origin main
@@ -39,7 +39,7 @@ jobs:
             pnpm build
 
             echo "Restart sparkai_web"
-            pm2 restart sparkai_web
+            #pm2 restart sparkai_web
 
             echo "Deployment completed sparkai_web successfully"
           EOF
