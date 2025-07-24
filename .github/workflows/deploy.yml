@@ -10,7 +10,7 @@ on:
 jobs:
   deploy:
     name: Deploy sparkai_web to Mac mini
-    runs-on: ubuntu-latest
+    runs-on: macmini-latest
 
     steps:
       - name: Checkout code
