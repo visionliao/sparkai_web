@@ -93,7 +93,7 @@ export function App({ appConfig }: AppProps) {
       const newRoom = new Room();
       setRoom(newRoom);
       Promise.all([
-        newRoom.localParticipant.setMicrophoneEnabled(true, undefined, {
+        newRoom.localParticipant.setMicrophoneEnabled(false, undefined, {
           preConnectBuffer: appConfig.isPreConnectBufferEnabled,
         }),
         newRoom.connect(connectionDetails.serverUrl, connectionDetails.participantToken),
@@ -117,22 +117,25 @@ export function App({ appConfig }: AppProps) {
 
   // 只在return里条件渲染
   if (!user) {
-    return <Login onLogin={setUser} />;
+    return <Login onLogin={(user) => { setUser(user); setSessionStarted(true); }} />;
   }
 
   const { startButtonText } = appConfig;
 
+  // 只在未开始会话时显示Welcome
   return (
     <>
-      <MotionWelcome
-        key="welcome"
-        startButtonText={startButtonText}
-        onStartCall={() => setSessionStarted(true)}
-        disabled={sessionStarted}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: sessionStarted ? 0 : 1 }}
-        transition={{ duration: 0.5, ease: 'linear', delay: sessionStarted ? 0 : 0.5 }}
-      />
+      {!sessionStarted && (
+        <MotionWelcome
+          key="welcome"
+          startButtonText={startButtonText}
+          onStartCall={() => setSessionStarted(true)}
+          disabled={sessionStarted}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: sessionStarted ? 0 : 1 }}
+          transition={{ duration: 0.5, ease: 'linear', delay: sessionStarted ? 0 : 0.5 }}
+        />
+      )}
 
       {room && (
         <RoomContext.Provider value={room}>
@@ -156,7 +159,7 @@ export function App({ appConfig }: AppProps) {
         </RoomContext.Provider>
       )}
 
-      <Toaster />
+      {/* <Toaster /> */}
     </>
   );
 }

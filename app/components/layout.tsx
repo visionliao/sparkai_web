@@ -34,6 +34,30 @@ export default function ComponentsLayout({ children }: { children: React.ReactNo
     };
   }, [room, connectionDetails]);
 
+  React.useEffect(() => {
+    let maybePreventPullToRefresh = false;
+    let lastY = 0;
+    function onTouchStart(e: TouchEvent) {
+      if (e.touches.length !== 1) return;
+      lastY = e.touches[0].clientY;
+      maybePreventPullToRefresh = window.scrollY === 0;
+    }
+    function onTouchMove(e: TouchEvent) {
+      const y = e.touches[0].clientY;
+      const yDiff = y - lastY;
+      lastY = y;
+      if (maybePreventPullToRefresh && yDiff > 0) {
+        e.preventDefault();
+      }
+    }
+    window.addEventListener('touchstart', onTouchStart, { passive: false });
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
+    return () => {
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove', onTouchMove);
+    };
+  }, []);
+
   return (
     <div className="mx-auto min-h-svh max-w-3xl space-y-8 px-4 py-8">
       <header className="flex flex-col gap-1">

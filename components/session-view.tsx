@@ -38,7 +38,9 @@ export const SessionView = ({
   ref,
 }: React.ComponentProps<'div'> & SessionViewProps) => {
   const { state: agentState } = useVoiceAssistant();
-  const [chatOpen, setChatOpen] = useState(false);
+  // 默认聊天界面打开
+  const [chatOpen, setChatOpen] = useState(true);
+  //const [chatOpen, setChatOpen] = useState(false);
   const { messages, send } = useChatAndTranscription();
   const room = useRoomContext();
 
@@ -179,7 +181,7 @@ export const SessionView = ({
             />
           </div>
           {/* skrim */}
-          <div className="from-background border-background absolute top-0 left-0 h-12 w-full -translate-y-full bg-gradient-to-t to-transparent" />
+          <div className="from-background border-background absolute top-0 left-0 h-12 w-full -translate-y-full bg-gradient-to-t to-transparent pointer-events-none" />
         </motion.div>
       </div>
     </main>

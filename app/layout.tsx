@@ -61,6 +61,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         <ApplyThemeScript />
       </head>
       <body
+        suppressHydrationWarning
         className={`${publicSans.variable} ${commitMono.variable} overflow-x-hidden antialiased`}
       >
         {children}

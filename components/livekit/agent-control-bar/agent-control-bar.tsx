@@ -38,7 +38,9 @@ export function AgentControlBar({
   ...props
 }: AgentControlBarProps) {
   const participants = useRemoteParticipants();
-  const [chatOpen, setChatOpen] = React.useState(false);
+  // 默认打开聊天界面
+  const [chatOpen, setChatOpen] = React.useState(true);
+  //const [chatOpen, setChatOpen] = React.useState(false);
   const [isSendingMessage, setIsSendingMessage] = React.useState(false);
 
   const isAgentAvailable = participants.some((p) => p.isAgent);
@@ -102,6 +104,8 @@ export function AgentControlBar({
 
       <div className="flex flex-row justify-between gap-1">
         <div className="flex gap-1">
+          {/* 只保留聊天开关 */}
+          {/*
           {visibleControls.microphone && (
             <div className="flex items-center gap-0">
               <TrackToggle
@@ -188,7 +192,7 @@ export function AgentControlBar({
               />
             </div>
           )}
-
+          */}
           {visibleControls.chat && (
             <Toggle
               variant="secondary"

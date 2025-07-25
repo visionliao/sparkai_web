@@ -207,6 +207,7 @@
     @apply bg-background text-foreground;
     -webkit-text-size-adjust: 100%;
     -webkit-touch-callout: none;
+    overscroll-behavior-y: contain;
   }
 }
 
